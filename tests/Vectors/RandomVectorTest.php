@@ -1,6 +1,6 @@
 <?php
 
-use PHP\Random;
+use BlockTrail\SimplyRandom\Random;
 
 class RandomVectorTest extends PHPUnit_Framework_TestCase {
 

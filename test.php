@@ -2,7 +2,9 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$random = new \PHP\Random(true);
+use BlockTrail\SimplyRandom\Random;
+
+$random = Random::instance();
 
 echo "Generating 8 random bytes:\n\n";
 var_dump(bin2hex($random->bytes(8)));
