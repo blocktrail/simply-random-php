@@ -11,7 +11,7 @@ class Random
 
     public function __construct()
     {
-        if (!function_exists('mcrypt_create_iv')) {
+        if (!function_exists('mcrypt_create_iv') || !extension_loaded('mcrypt')) {
             throw new \LogicException('SimplyRandom requires mcrypt_create_iv');
         }
     }
