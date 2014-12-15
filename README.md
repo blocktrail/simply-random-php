@@ -26,15 +26,13 @@ Please refer to `test.php` for example usage.
 Most of the code used in this library was originally written by [ircmaxell](https://github.com/ircmaxell) 
 for [random_compat](https://github.com/ircmaxell/random_compat).
 
-I stripped out some complexity from his library which I deemed unnecessary.  
-Such as using various sources of random bytes (`mcrypt`, `/dev/random`, `/dev/urandom` , `openssl_random_pseudo_bytes`) and mixing those.  
-When using `/dev/urandom` it shouldn't be neccesary to do mixing, half the world relies on `/dev/urandom` being secure, 
-not to mention that `mcrypt` and `openssl_random_pseudo_bytes` both use `/dev/urandom` under the hood...
+I stripped out some complexity from his library which I deemed unnecessary, since I'm okay with having a strong dependancy on the mcrypt extension, while his code is written to be able to function without the presence of mcrypt too.  
+When using `MCRYPT_DEV_URANDOM` (which is a simple wrapper around `/dev/urandom`) it shouldn't be neccesary to do mixing.
 
 
 ## Why MCRYPT_DEV_URANDOM?
 Using MCRYPT_DEV_URANDOM (or using `/dev/urandom` directly) is the right way to generate randomness, there's no better way of doing this.  
-The OpenSSL extension has `openssl_random_pseudo_bytes` which also uses `/dev/urandom` but it has had issues in the past and when generating randomness it's generally best to avoid messing with the randomness, they purest `/dev/urandom` is the best.
+The OpenSSL extension has `openssl_random_pseudo_bytes` which also uses `/dev/urandom` but it has had issues in the past and when generating randomness it's generally that "every bit of additional code is something to fail".
 
 see:
 http://timoh6.github.io/2013/11/05/Secure-random-numbers-for-PHP-developers.html
