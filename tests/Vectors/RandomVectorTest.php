@@ -24,7 +24,7 @@ class RandomVectorTest extends PHPUnit_Framework_TestCase {
 
     public function doTestFloat($times) {
         $rand = new Random;
-        $values = [];
+        $values = array();
         for ($i = 0; $i < $times; $i++) {
             $values[] = $rand->float();
         }
@@ -45,7 +45,7 @@ class RandomVectorTest extends PHPUnit_Framework_TestCase {
 
     public function doTestInt($min, $max, $times) {
         $rand = new Random;
-        $values = [];
+        $values = array();
         for ($i = 0; $i < $times; $i++) {
             $values[] = $rand->int($min, $max);
         }
