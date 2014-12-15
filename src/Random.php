@@ -9,18 +9,11 @@ class Random
     const TOKEN_ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const TOKEN_ALNUM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    private $devurandomFallback;
-
-    private $opensslFallback;
-
-    /**
-     * @param bool $devurandomFallback  enable fallback to /dev/urandom
-     * @param bool $opensslFallback     enable fallback to openssl_random_pseudo_bytes
-     */
-    public function __construct($devurandomFallback = true, $opensslFallback = false)
+    public function __construct()
     {
-        $this->devurandomFallback = $devurandomFallback;
-        $this->opensslFallback = $opensslFallback;
+        if (!function_exists('mcrypt_create_iv')) {
+            throw new \LogicException('SimplyRandom requires mcrypt_create_iv');
+        }
     }
 
     /**
@@ -175,31 +168,7 @@ class Random
      */
     protected function genRandom($length)
     {
-        if (function_exists('mcrypt_create_iv')) {
-            $random = mcrypt_create_iv($length, \MCRYPT_DEV_URANDOM);
-
-            if (strlen($random)) {
-                return $random;
-            }
-        }
-
-        if ($this->devurandomFallback && file_exists('/dev/urandom') && is_readable('/dev/urandom')) {
-            $random = file_get_contents('/dev/urandom', false, null, -1, $length);
-
-            if (strlen($random)) {
-                return $random;
-            }
-        }
-
-        if ($this->opensslFallback && function_exists('openssl_random_pseudo_bytes')) {
-            $random = openssl_random_pseudo_bytes($length, $strength);
-
-            if ($strength) {
-                return $random;
-            }
-        }
-
-        throw new \LogicException('Could not generate secure random number');
+        return mcrypt_create_iv($length, \MCRYPT_DEV_URANDOM);
     }
 
     /**

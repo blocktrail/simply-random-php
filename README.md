@@ -11,9 +11,7 @@ This library can generate strong random numbers and cryptographically secure ran
 
 
 ## Dependencies
-This library depends on `ext-mcrypt` as it uses `mcrypt_create_iv($length, \MCRYPT_DEV_URANDOM)` to get random data from `/dev/urandom`.  
-It has a fallback to directly accessing `/dev/urandom` for random data or if you insist to `openssl_random_pseudo_bytes`
-but for that you need to pass `$opensslFallback = true` when constructing the `Random` class.
+This library depends on `ext-mcrypt` as it uses `mcrypt_create_iv($length, \MCRYPT_DEV_URANDOM)` to get random data from `/dev/urandom`.
 
 
 ## Installation
