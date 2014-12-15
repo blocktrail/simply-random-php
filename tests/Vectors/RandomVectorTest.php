@@ -38,7 +38,7 @@ class RandomVectorTest extends PHPUnit_Framework_TestCase {
      * @dataProvider provideTestInt
      */
     public function testInt($min, $max) {
-        if (!$this->doTestInt($min, $max, 100) && !$this->doTestInt($min, $max, 10000)) {
+        if (!$this->doTestInt($min, $max, 10000)) {
             $this->fail("Integer generation for $min, $max failed statistical tests");
         }
     }
@@ -47,10 +47,12 @@ class RandomVectorTest extends PHPUnit_Framework_TestCase {
         $rand = new Random;
         $values = array();
         for ($i = 0; $i < $times; $i++) {
-            $values[] = $rand->int($min, $max);
+            // convert to (float) here otherwise array_sum will cause a int overflow for the PHP_MAX_INT test (on HHVM)
+            $values[] = (float)$rand->int($min, $max);
         }
         $avg = array_sum($values) / count($values);
         $expectedAvg = ($min + $max) / 2;
+
         $diff = max($avg, $expectedAvg) - min($avg, $expectedAvg);
         // Ensure that the deviation is less than 1 standard deviation
         return (($max - $min) / sqrt(12)) > $diff;
