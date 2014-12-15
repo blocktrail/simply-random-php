@@ -9,14 +9,9 @@ class Random
     const TOKEN_ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const TOKEN_ALNUM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    /**
-     * @var Random
-     */
-    protected static $instance;
+    private $devurandomFallback;
 
-    protected $devurandomFallback;
-
-    protected $opensslFallback;
+    private $opensslFallback;
 
     /**
      * @param bool $devurandomFallback  enable fallback to /dev/urandom
@@ -26,20 +21,6 @@ class Random
     {
         $this->devurandomFallback = $devurandomFallback;
         $this->opensslFallback = $opensslFallback;
-    }
-
-    /**
-     * Return instance of Random with default settings
-     *
-     * @return Random
-     */
-    public static function instance()
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new Random(true, false);
-        }
-
-        return self::$instance;
     }
 
     /**
@@ -202,7 +183,7 @@ class Random
             }
         }
 
-        if (self::DEV_URANDOM_FALLBACK && file_exists('/dev/urandom') && is_readable('/dev/urandom')) {
+        if ($this->devurandomFallback && file_exists('/dev/urandom') && is_readable('/dev/urandom')) {
             $random = file_get_contents('/dev/urandom', false, null, -1, $length);
 
             if (strlen($random)) {
@@ -210,7 +191,7 @@ class Random
             }
         }
 
-        if (self::OPENSSL_FALLBACK && function_exists('openssl_random_pseudo_bytes')) {
+        if ($this->opensslFallback && function_exists('openssl_random_pseudo_bytes')) {
             $random = openssl_random_pseudo_bytes($length, $strength);
 
             if ($strength) {
