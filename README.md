@@ -32,7 +32,7 @@ When using `/dev/urandom` it shouldn't be neccesary to do mixing, half the world
 not to mention that `mcrypt` and `openssl_random_pseudo_bytes` both use `/dev/urandom` under the hood...
 
 
-# Why MCRYPT_DEV_URANDOM?
+## Why MCRYPT_DEV_URANDOM?
 Using MCRYPT_DEV_URANDOM (or using `/dev/urandom` directly) is the right way to generate randomness, there's no better way of doing this.  
 The OpenSSL extension has `openssl_random_pseudo_bytes` which also uses `/dev/urandom` but it has had issues in the past and when generating randomness it's generally best to avoid messing with the randomness, they purest `/dev/urandom` is the best.
 
