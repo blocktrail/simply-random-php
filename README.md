@@ -26,7 +26,7 @@ Please refer to `test.php` for example usage.
 Most of the code used in this library was originally written by [ircmaxell](https://github.com/ircmaxell) 
 for [random_compat](https://github.com/ircmaxell/random_compat).
 
-I stripped out some complexity from his library which I deemed unnecessary, since I'm okay with having a strong dependancy on the mcrypt extension, while his code is written to be able to function without the presence of mcrypt too.  
+I stripped out some complexity from his library, since I'm okay with having a strong dependancy on the mcrypt extension, while his code is written to be able to function without the presence of mcrypt too.  
 When using `MCRYPT_DEV_URANDOM` (which is a simple wrapper around `/dev/urandom`) it shouldn't be neccesary to do mixing.
 
 
