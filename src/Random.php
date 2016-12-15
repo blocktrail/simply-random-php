@@ -17,6 +17,18 @@ class Random
     }
 
     /**
+     * Generate a random bit (ie, a coin-toss)
+     *
+     *
+     * @return int The generated bit
+     */
+    public function bit()
+    {
+        $byte = $this->bytes(1);
+        return unpack("C", $byte)[1] & 1;
+    }
+
+    /**
      * Generate a native binary string
      *
      * @param int $length The length of the string to generate
