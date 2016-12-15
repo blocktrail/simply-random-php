@@ -13,6 +13,30 @@ class RandomTest extends PHPUnit_Framework_TestCase {
         return $ret;
     }
 
+    public function testBit() {
+        $random = new \BlockTrail\SimplyRandom\Random();
+        $count = [
+            0 => 0,
+            1 => 0,
+        ];
+
+        $statisticallySignificantNumberMaybe = 1024;
+        for ($i = 0; $i < $statisticallySignificantNumberMaybe; $i++) {
+            $bit = $random->bit();
+            $count[$bit]++;
+            // Check returned value
+            $this->assertTrue($bit === 0 || $bit === 1);
+        }
+
+        // Check an error hasn't screwed up the output
+        $half = $statisticallySignificantNumberMaybe / 2;
+        $minimum = $half - $half / 2;
+        $maximum = $half + $half / 2;
+        $this->assertTrue($count[0] > $minimum && $count[0] < $maximum);
+        $this->assertTrue($count[1] > $minimum && $count[1] < $maximum);
+    }
+
+
     public function testBytes() {
         $mock = new MockRandom($this->getSeed());
         $result = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
