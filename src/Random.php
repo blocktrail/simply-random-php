@@ -9,13 +9,6 @@ class Random
     const TOKEN_ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const TOKEN_ALNUM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    public function __construct()
-    {
-        if (!function_exists('mcrypt_create_iv') || !extension_loaded('mcrypt')) {
-            throw new \LogicException('SimplyRandom requires mcrypt_create_iv');
-        }
-    }
-
     /**
      * Generate a native binary string
      *
@@ -168,7 +161,7 @@ class Random
      */
     protected function genRandom($length)
     {
-        return mcrypt_create_iv($length, \MCRYPT_DEV_URANDOM);
+        return random_bytes($length);
     }
 
     /**
