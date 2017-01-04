@@ -3,7 +3,7 @@ Simply Random
 [![Latest Stable Version](https://badge.fury.io/ph/blocktrail%2Fsimply-random.svg)](https://packagist.org/packages/blocktrail/simply-random)
 [![Build Status](https://travis-ci.org/blocktrail/simply-random-php.svg?branch=master)](https://travis-ci.org/blocktrail/simply-random-php)
 
-tested on **PHP 5.4**, **5.5**, **5.6** and **HHVM**
+tested on **5.6**, **7.0**, **7.1** and **HHVM**
 
 ## What is this library?
 This is a simple library for random number generation using random_bytes.  

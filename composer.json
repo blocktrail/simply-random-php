@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.6.0",
         "paragonie/random_compat": "^1|^2"
     },
     "require-dev": {
